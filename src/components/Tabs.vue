@@ -1,6 +1,24 @@
 <template>
   <div class="Tabs tabs" :class="modifiers">
-    <slot></slot>
+    <ul>
+      <li
+        v-for="item in items"
+        @click="onItemClick(item)"
+        :class="{ 'is-active': mutableActiveItem === item.name }"
+      >
+        <a>
+          <span v-if="item.icon"
+            :class="[
+              'icon',
+              (typeof item.icon === 'string') ? 'is-small' : item.icon.modifiers,
+            ]"
+          >
+            <i :class="[`fa fa-${(typeof item.icon === 'string') ? item.icon : item.icon.name}`]"></i>
+          </span>
+          <span>{{ item.label }}</span>
+        </a>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -8,6 +26,22 @@
 export default {
   name: 'tabs',
   props: {
+    /**
+     * The items to be listed inside the tabs component
+     */
+    items: {
+      type: Array,
+      required: true,
+    },
+
+    /**
+     * The initial item with active class
+     */
+    activeItem: {
+      type: String,
+      default: () => '',
+    },
+
     /**
      *  Bulma-specific options
      */
@@ -19,6 +53,11 @@ export default {
     isBoxed: Boolean,
     isToggle: Boolean,
     isFullwidth: Boolean,
+  },
+  data() {
+    return {
+      mutableActiveItem: this.activeItem,
+    };
   },
   computed: {
     modifiers() {
@@ -32,6 +71,14 @@ export default {
         'is-toggle': this.isToggle,
         'is-fullwidth': this.isFullwidth,
       };
+    },
+  },
+  methods: {
+    onItemClick(item) {
+      if (this.mutableActiveItem !== item.name) {
+        this.$emit('tabs:change', item.name);
+        this.mutableActiveItem = item.name;
+      }
     },
   },
 };

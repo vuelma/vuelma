@@ -1,19 +1,22 @@
 <template>
   <nav class="Pagination pagination" :class="modifiers">
-    <a
-      class="Pagination__previous pagination-previous"
-      @click="onPreviousClick"
-      :disabled="!hasPreviousPage"
-    >
-      Previous
-    </a>
-    <a
-      class="Pagination__next pagination-next"
-      @click="onNextClick"
-      :disabled="!hasNextPage"
-    >
-      Next
-    </a>
+    <template v-if="hasButtons">
+      <a
+        class="Pagination__previous pagination-previous"
+        @click="onPreviousClick"
+        :disabled="!hasPreviousPage"
+      >
+        Previous
+      </a>
+      <a
+        class="Pagination__next pagination-next"
+        @click="onNextClick"
+        :disabled="!hasNextPage"
+      >
+        Next
+      </a>
+    </template>
+
     <ul class="Pagination__list pagination-list">
       <template v-if="hasLeftEllipsis">
         <li>
@@ -28,10 +31,10 @@
         <li><span class="Pagination__ellipsis pagination-ellipsis">&hellip;</span></li>
       </template>
 
-      <li v-for="page in visiblePages">
+      <li v-for="page in visiblePages" :key="page">
         <a
           class="Pagination__link pagination-link"
-          :class="{ 'is-current': page === metadata.page }"
+          :class="{ 'is-current': page === currentPage }"
           :title="page"
           @click="onPageClick"
         >
@@ -60,12 +63,22 @@ export default {
   name: 'pagination',
   props: {
     /**
-     * The pagination metadata.
+     * The currently selected page.
      */
-    metadata: {
-      type: Object,
+    currentPage: {
+      type: Number,
       required: true,
     },
+
+    /**
+     * The number of items per page.
+     */
+    pageSize: Number,
+
+    /**
+     * The total number of items being paginated.
+     */
+    totalItems: Number,
 
     /**
      * The number of pages to pad the current page.
@@ -73,6 +86,14 @@ export default {
     padding: {
       type: Number,
       default: 3,
+    },
+
+    /**
+     * Determines whether to show next/previous buttons or not.
+     */
+    hasButtons: {
+      type: Boolean,
+      default: true,
     },
 
     /**
@@ -95,36 +116,36 @@ export default {
       };
     },
     lastPage() {
-      return Math.floor(this.metadata.totalItems / this.metadata.pageSize);
+      return Math.floor(this.totalItems / this.pageSize);
     },
     visiblePagesCount() {
       return (this.padding * 2) + 1;
     },
     hasNextPage() {
-      return this.metadata.page < this.lastPage || !this.metadata.totalItems;
+      return this.currentPage < this.lastPage || !this.totalItems;
     },
     hasPreviousPage() {
-      return this.metadata.page > 1;
+      return this.currentPage > 1;
     },
     hasLeftEllipsis() {
-      return this.metadata.page > this.padding + 1;
+      return this.currentPage > this.padding + 1;
     },
     hasRightEllipsis() {
-      return this.metadata.page < this.lastPage - this.padding;
+      return this.currentPage < this.lastPage - this.padding;
     },
     visiblePages() {
       const visiblePages = [];
-      const { page } = this.metadata;
-      if (page <= this.padding + 1) {
+      if (this.currentPage <= this.padding + 1) {
         for (let i = 1; i <= this.visiblePagesCount; i += 1) {
           visiblePages.push(i);
         }
-      } else if (page >= this.lastPage - this.padding) {
+      } else if (this.currentPage >= this.lastPage - this.padding) {
         for (let i = (this.lastPage - this.visiblePagesCount) + 1; i <= this.lastPage; i += 1) {
           visiblePages.push(i);
         }
       } else {
-        for (let i = page - this.padding; i <= page + this.padding; i += 1) {
+        let i = this.currentPage - this.padding;
+        for (i; i <= this.currentPage + this.padding; i += 1) {
           visiblePages.push(i);
         }
       }
@@ -138,7 +159,7 @@ export default {
      */
     onNextClick() {
       if (this.hasNextPage) {
-        this.$emit('update:metadata', { ...this.metadata, page: this.metadata.page + 1 });
+        this.$emit('pagination:page', this.currentPage + 1);
       }
     },
 
@@ -147,7 +168,7 @@ export default {
      */
     onPreviousClick() {
       if (this.hasPreviousPage) {
-        this.$emit('update:metadata', { ...this.metadata, page: this.metadata.page - 1 });
+        this.$emit('pagination:change', this.currentPage - 1);
       }
     },
 
@@ -155,10 +176,7 @@ export default {
      * Go to specific page.
      */
     onPageClick(event) {
-      this.$emit('update:metadata', {
-        ...this.metadata,
-        page: parseInt(event.target.title, 10),
-      });
+      this.$emit('pagination:change', parseInt(event.target.title, 10));
     },
   },
 };

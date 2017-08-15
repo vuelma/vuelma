@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Bulma components for Vue.js",
   "author": "Adriel P. de Guzman <adrielpdeguzman@icloud.com>",
-  "private": true,
+  "main": "index.js",
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
@@ -16,8 +16,7 @@
   "dependencies": {
     "bulma": "^0.5.1",
     "font-awesome": "^4.7.0",
-    "vue": "^2.4.2",
-    "vue-router": "^2.3.1"
+    "vue": "^2.4.2"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",
@@ -78,6 +77,7 @@
     "sinon-chai": "^2.8.0",
     "url-loader": "^0.5.8",
     "vue-loader": "^12.1.0",
+    "vue-router": "^2.3.1",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.4.2",
     "webpack": "^2.6.1",

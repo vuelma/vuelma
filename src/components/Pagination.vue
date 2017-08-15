@@ -159,7 +159,7 @@ export default {
      */
     onNextClick() {
       if (this.hasNextPage) {
-        this.$emit('pagination:page', this.currentPage + 1);
+        this.$emit('pagination:change', this.currentPage + 1);
       }
     },
 

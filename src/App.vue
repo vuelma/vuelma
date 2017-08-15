@@ -1,26 +1,32 @@
 <template>
   <div id="app">
-    <nav-component has-shadow nav-toggle>
-      <template slot="nav-left">
-        <router-link to="/" class="nav-item">vuelma</router-link>
+    <navbar-component toggle transparent>
+      <template slot="navbar-brand">
+        <router-link to="/" class="navbar-item">vuelma</router-link>
       </template>
 
-      <template slot="nav-right">
-        <router-link to="/" class="nav-item is-tab" exact>Home</router-link>
-        <router-link to="/docs" class="nav-item is-tab">Docs</router-link>
+      <template slot="navbar-start">
+        <router-link to="/" class="navbar-item" exact>Home</router-link>
+        <router-link to="/docs" class="navbar-item">Docs</router-link>
       </template>
-    </nav-component>
+
+      <template slot="navbar-end">
+        <router-link to="/" class="navbar-item" exact>Home</router-link>
+        <router-link to="/docs" class="navbar-item">Docs</router-link>
+      </template>
+    </navbar-component>
+
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import NavComponent from '@/components/Nav';
+import NavbarComponent from '@/components/Navbar';
 
 export default {
   name: 'app',
   components: {
-    NavComponent,
+    NavbarComponent,
   },
 };
 </script>

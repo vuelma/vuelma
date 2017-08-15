@@ -1,12 +1,12 @@
 <template>
-  <nav class="Navbar navbar" :class="{ 'is-transparent': transparent }">
+  <nav class="Navbar navbar" :class="{ 'is-transparent': isTransparent }">
     <div class="Navbar__brand navbar-brand">
       <slot name="navbar-brand"></slot>
 
       <div
         class="Navbar__burger navbar-burger"
         :class="isActiveClass"
-        v-if="toggle"
+        v-if="hasBurger"
         @click="isActive = !isActive"
       >
         <span></span>
@@ -15,10 +15,7 @@
       </div>
     </div>
 
-    <div
-      class="Navbar__menu navbar-menu"
-      :class="[{ 'navbar-menu': toggle }, isActiveClass]"
-    >
+    <div class="Navbar__menu navbar-menu" :class="isActiveClass">
       <div class="Navbar__start navbar-start">
         <slot name="navbar-start"></slot>
       </div>
@@ -37,8 +34,8 @@ export default {
     /**
      * Bulma-specific options.
      */
-    transparent: Boolean,
-    toggle: Boolean,
+    isTransparent: Boolean,
+    hasBurger: Boolean,
   },
   data() {
     return {

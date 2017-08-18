@@ -3,7 +3,10 @@
     class="Modal modal is-active"
     v-show="show"
   >
-    <div class="Modal__background modal-background"></div>
+    <div
+      class="Modal__background modal-background"
+      @click="close"
+    ></div>
     <div
       class="Modal__content modal-content"
       v-if="!isCard"
@@ -55,6 +58,7 @@
 
 <script>
 export default {
+  name: 'modal',
   props: {
     /**
      *  Bulma-specific options.
@@ -72,6 +76,14 @@ export default {
       type: Boolean,
       required: true,
     },
+
+    /**
+     * Determines whether to close the modal via backdrop or not.
+     */
+    backdropClose: {
+      type: Boolean,
+      default: true,
+    },
   },
   computed: {
     cardHasBody() {
@@ -87,6 +99,16 @@ export default {
   watch: {
     show() {
       document.querySelector('html').classList.toggle('modal-opened');
+    },
+  },
+  methods: {
+    /**
+     * Close the modal.
+     */
+    close() {
+      if (this.backdropClose) {
+        this.$emit('modal:close');
+      }
     },
   },
 };

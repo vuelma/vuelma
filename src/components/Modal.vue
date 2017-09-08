@@ -7,19 +7,6 @@
       class="Modal__background modal-background"
       @click="(backdropClose) ? close() : () => {}"
     ></div>
-    <div
-      class="Modal__content modal-content"
-      v-if="!isCard"
-    >
-      <slot name="modal-content"></slot>
-    </div>
-    <button
-      class="Modal__close modal-close is-large"
-      aria-label="close"
-      v-if="!isCard"
-      @click="close"
-    ></button>
-
     <div class="Modal__card modal-card"
       v-if="isCard"
     >
@@ -53,6 +40,18 @@
         <slot name="foot"></slot>
       </footer>
     </div>
+
+    <template v-else>
+      <div class="Modal__content modal-content">
+        <slot name="modal-content"></slot>
+      </div>
+
+      <button
+        class="Modal__close modal-close is-large"
+        aria-label="close"
+        @click="close"
+      ></button>
+    </template>
   </div>
 </template>
 

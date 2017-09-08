@@ -1,6 +1,6 @@
 {
   "name": "vuelma",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Bulma components for Vue.js",
   "author": "Adriel P. de Guzman <adrielpdeguzman@icloud.com>",
   "main": "index.js",

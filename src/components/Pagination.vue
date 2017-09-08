@@ -3,14 +3,14 @@
     <template v-if="hasButtons">
       <a
         class="Pagination__previous pagination-previous"
-        @click="onPreviousClick"
+        @click="previousPage"
         :disabled="!hasPreviousPage"
       >
         Previous
       </a>
       <a
         class="Pagination__next pagination-next"
-        @click="onNextClick"
+        @click="nextPage"
         :disabled="!hasNextPage"
       >
         Next
@@ -22,8 +22,8 @@
         <li>
             <a
               class="Pagination__link pagination-link"
-              title="1"
-              @click="onPageClick"
+              :title="1"
+              @click="setPage($event.target.title)"
             >
               1
             </a>
@@ -36,7 +36,7 @@
           class="Pagination__link pagination-link"
           :class="{ 'is-current': page === currentPage }"
           :title="page"
-          @click="onPageClick"
+          @click="setPage($event.target.title)"
         >
           {{ page }}
         </a>
@@ -48,7 +48,7 @@
             <a
               class="Pagination__link pagination-link"
               :title="lastPage"
-              @click="onPageClick"
+              @click="setPage($event.target.title)"
             >
               {{ lastPage }}
             </a>
@@ -157,26 +157,26 @@ export default {
     /**
      * Cycle to next page if applicable.
      */
-    onNextClick() {
+    nextPage() {
       if (this.hasNextPage) {
-        this.$emit('pagination:page', this.currentPage + 1);
+        this.$emit('update:currentPage', this.currentPage + 1);
       }
     },
 
     /**
      * Cycle to previous page if applicable.
      */
-    onPreviousClick() {
+    previousPage() {
       if (this.hasPreviousPage) {
-        this.$emit('pagination:change', this.currentPage - 1);
+        this.$emit('update:currentPage', this.currentPage - 1);
       }
     },
 
     /**
      * Go to specific page.
      */
-    onPageClick(event) {
-      this.$emit('pagination:change', parseInt(event.target.title, 10));
+    setPage(page) {
+      this.$emit('update:currentPage', Number(page));
     },
   },
 };

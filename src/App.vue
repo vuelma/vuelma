@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <navbar toggle transparent>
+    <navbar is-transparent has-burger>
       <template slot="navbar-brand">
         <router-link to="/" class="navbar-item">vuelma</router-link>
       </template>

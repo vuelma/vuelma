@@ -2,7 +2,23 @@
   "name": "vuelma",
   "version": "0.1.0",
   "description": "Bulma components for Vue.js",
+  "keywords": [
+    "vue",
+    "bulma",
+    "components",
+    "javascript"
+  ],
+  "homepage": "https://vuelma.github.io/vuelma",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vuelma/vuelma"
+  },
+  "bugs": "https://github.com/vuelma/vuelma/issues",
+  "license": "MIT",
   "author": "Adriel P. de Guzman <adrielpdeguzman@icloud.com>",
+  "contributors": [
+    "Isaiah Benjamin G. Cruz <isaiahgcruz@gmail.com>"
+  ],
   "main": "index.js",
   "scripts": {
     "dev": "node build/dev-server.js",
@@ -12,11 +28,6 @@
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
-  },
-  "dependencies": {
-    "bulma": "^0.5.1",
-    "font-awesome": "^4.7.0",
-    "vue": "^2.4.2"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",
@@ -28,6 +39,7 @@
     "babel-preset-env": "^1.3.2",
     "babel-preset-stage-2": "^6.22.0",
     "babel-register": "^6.22.0",
+    "bulma": "^0.5.1",
     "chai": "^3.5.0",
     "chalk": "^1.1.3",
     "chromedriver": "^2.27.2",
@@ -47,6 +59,7 @@
     "express": "^4.14.1",
     "extract-text-webpack-plugin": "^2.0.0",
     "file-loader": "^0.11.1",
+    "font-awesome": "^4.7.0",
     "friendly-errors-webpack-plugin": "^1.1.3",
     "html-webpack-plugin": "^2.28.0",
     "http-proxy-middleware": "^0.17.3",
@@ -76,6 +89,7 @@
     "sinon": "^2.1.0",
     "sinon-chai": "^2.8.0",
     "url-loader": "^0.5.8",
+    "vue": "^2.4.2",
     "vue-loader": "^12.1.0",
     "vue-router": "^2.3.1",
     "vue-style-loader": "^3.0.1",
@@ -85,6 +99,11 @@
     "webpack-dev-middleware": "^1.10.0",
     "webpack-hot-middleware": "^2.18.0",
     "webpack-merge": "^4.1.0"
+  },
+  "peerDependencies": {
+    "bulma": "^0.5.1",
+    "font-awesome": "^4.7.0",
+    "vue": "^2.4.2"
   },
   "engines": {
     "node": ">= 4.0.0",

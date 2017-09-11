@@ -1,0 +1,183 @@
+<template>
+  <nav class="Pagination pagination" :class="modifiers">
+    <template v-if="hasButtons">
+      <a
+        class="Pagination__previous pagination-previous"
+        @click="previousPage"
+        :disabled="!hasPreviousPage"
+      >
+        Previous
+      </a>
+      <a
+        class="Pagination__next pagination-next"
+        @click="nextPage"
+        :disabled="!hasNextPage"
+      >
+        Next
+      </a>
+    </template>
+
+    <ul class="Pagination__list pagination-list">
+      <template v-if="hasLeftEllipsis">
+        <li>
+            <a
+              class="Pagination__link pagination-link"
+              :title="1"
+              @click="setPage($event.target.title)"
+            >
+              1
+            </a>
+        </li>
+        <li><span class="Pagination__ellipsis pagination-ellipsis">&hellip;</span></li>
+      </template>
+
+      <li v-for="page in visiblePages" :key="page">
+        <a
+          class="Pagination__link pagination-link"
+          :class="{ 'is-current': page === currentPage }"
+          :title="page"
+          @click="setPage($event.target.title)"
+        >
+          {{ page }}
+        </a>
+      </li>
+
+      <template v-if="hasRightEllipsis">
+        <li><span class="Pagination__ellipsis pagination-ellipsis">&hellip;</span></li>
+        <li>
+            <a
+              class="Pagination__link pagination-link"
+              :title="lastPage"
+              @click="setPage($event.target.title)"
+            >
+              {{ lastPage }}
+            </a>
+        </li>
+      </template>
+    </ul>
+  </nav>
+</template>
+
+<script>
+export default {
+  name: 'pagination',
+  props: {
+    /**
+     * The currently selected page.
+     */
+    currentPage: {
+      type: Number,
+      required: true,
+    },
+
+    /**
+     * The number of items per page.
+     */
+    pageSize: Number,
+
+    /**
+     * The total number of items being paginated.
+     */
+    totalItems: Number,
+
+    /**
+     * The number of pages to pad the current page.
+     */
+    padding: {
+      type: Number,
+      default: 3,
+    },
+
+    /**
+     * Determines whether to show next/previous buttons or not.
+     */
+    hasButtons: {
+      type: Boolean,
+      default: true,
+    },
+
+    /**
+     * Bulma-specific options.
+     */
+    isSmall: Boolean,
+    isMedium: Boolean,
+    isLarge: Boolean,
+    isCentered: Boolean,
+    isRight: Boolean,
+  },
+  computed: {
+    modifiers() {
+      return {
+        'is-small': this.isSmall,
+        'is-medium': this.isMedium,
+        'is-large': this.isLarge,
+        'is-centered': this.isCentered,
+        'is-right': this.isRight,
+      };
+    },
+    lastPage() {
+      return Math.floor(this.totalItems / this.pageSize);
+    },
+    visiblePagesCount() {
+      return (this.padding * 2) + 1;
+    },
+    hasNextPage() {
+      return this.currentPage < this.lastPage || !this.totalItems;
+    },
+    hasPreviousPage() {
+      return this.currentPage > 1;
+    },
+    hasLeftEllipsis() {
+      return this.currentPage > this.padding + 1;
+    },
+    hasRightEllipsis() {
+      return this.currentPage < this.lastPage - this.padding;
+    },
+    visiblePages() {
+      const visiblePages = [];
+      if (this.currentPage <= this.padding + 1) {
+        for (let i = 1; i <= this.visiblePagesCount; i += 1) {
+          visiblePages.push(i);
+        }
+      } else if (this.currentPage >= this.lastPage - this.padding) {
+        for (let i = (this.lastPage - this.visiblePagesCount) + 1; i <= this.lastPage; i += 1) {
+          visiblePages.push(i);
+        }
+      } else {
+        let i = this.currentPage - this.padding;
+        for (i; i <= this.currentPage + this.padding; i += 1) {
+          visiblePages.push(i);
+        }
+      }
+
+      return visiblePages;
+    },
+  },
+  methods: {
+    /**
+     * Cycle to next page if applicable.
+     */
+    nextPage() {
+      if (this.hasNextPage) {
+        this.$emit('update:currentPage', this.currentPage + 1);
+      }
+    },
+
+    /**
+     * Cycle to previous page if applicable.
+     */
+    previousPage() {
+      if (this.hasPreviousPage) {
+        this.$emit('update:currentPage', this.currentPage - 1);
+      }
+    },
+
+    /**
+     * Go to specific page.
+     */
+    setPage(page) {
+      this.$emit('update:currentPage', Number(page));
+    },
+  },
+};
+</script>

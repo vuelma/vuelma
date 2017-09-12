@@ -1,11 +1,11 @@
 <template>
-  <div class="Home">
-    vuelma/vuelma
+  <div class="Docs">
+    Coming soon!
   </div>
 </template>
 
 <script>
 export default {
-  name: 'home',
+  name: 'docs',
 };
 </script>

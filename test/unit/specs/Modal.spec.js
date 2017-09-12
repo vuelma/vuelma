@@ -69,22 +69,39 @@ describe('Modal.vue', () => {
     });
   });
 
-  describe('titleHasClose prop', () => {
+  describe('hasClose prop', () => {
     const vm = getComponent({
       show: true,
-      isCard: true,
-      titleHasClose: true,
+      hasClose: true,
     });
 
     describe('true', () => {
-      it('should have a close button on title', () => {
-        expect(!!vm.$el.querySelector('.modal > .modal-card > .modal-card-head > button.delete')).to.be.true;
+      it('should have a close button', (done) => {
+        vm.$nextTick(() => {
+          expect(!!vm.$el.querySelector('.modal > button.modal-close')).to.be.true;
+          done();
+        });
+      });
+      it('should have a close button on title for modal card', (done) => {
+        vm.isCard = true;
+        vm.$nextTick(() => {
+          expect(!!vm.$el.querySelector('.modal > .modal-card > .modal-card-head > button.delete')).to.be.true;
+          done();
+        });
       });
     });
 
     describe('false', () => {
-      it('should not have a close button on title', (done) => {
-        vm.titleHasClose = false;
+      it('should not have a close button', (done) => {
+        vm.hasClose = false;
+        vm.$nextTick(() => {
+          expect(!!vm.$el.querySelector('.modal > button.modal-close')).to.not.be.true;
+          done();
+        });
+      });
+      it('should not have a close button on title for modal card', (done) => {
+        vm.isCard = true;
+        vm.hasClose = false;
         vm.$nextTick(() => {
           expect(!!vm.$el.querySelector('.modal > .modal-card > .modal-card-head > button.delete')).to.not.be.true;
           done();

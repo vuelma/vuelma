@@ -21,7 +21,7 @@
         <button
           class="delete"
           aria-label="close"
-          v-if="titleHasClose"
+          v-if="hasClose"
           @click="close"
         ></button>
       </header>
@@ -43,12 +43,13 @@
 
     <template v-else>
       <div class="Modal__content modal-content">
-        <slot name="modal-content"></slot>
+        <slot></slot>
       </div>
 
       <button
         class="Modal__close modal-close is-large"
         aria-label="close"
+        v-if="hasClose"
         @click="close"
       ></button>
     </template>
@@ -63,7 +64,7 @@ export default {
      *  Bulma-specific options.
      */
     isCard: Boolean,
-    titleHasClose: {
+    hasClose: {
       type: Boolean,
       default: true,
     },
@@ -92,7 +93,7 @@ export default {
       return !!this.$slots.foot;
     },
     cardHasHead() {
-      return !!this.$slots.title || !!this.titleHasClose;
+      return !!this.$slots.title || !!this.hasClose;
     },
   },
   watch: {

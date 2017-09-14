@@ -64,8 +64,8 @@ export default {
     /**
      * Bulma-specific mofidiers.
      */
-    hoverable: Boolean,
-    right: Boolean,
+    isHoverable: Boolean,
+    isRight: Boolean,
 
     /**
      * Bulma modifiers to append to the button.
@@ -83,9 +83,9 @@ export default {
   computed: {
     modifiers() {
       return {
-        'is-hoverable': this.hoverable,
+        'is-hoverable': this.isHoverable,
         'is-active': this.isActive,
-        'is-right': this.right,
+        'is-right': this.isRight,
       };
     },
   },

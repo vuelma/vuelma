@@ -113,5 +113,8 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "dependencies": {
+    "vue-click-outside": "^1.0.6"
+  }
 }

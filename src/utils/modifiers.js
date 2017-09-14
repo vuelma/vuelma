@@ -26,13 +26,13 @@ export default {
    * Generate the color modifiers with the given props.
    *
    * @param {any} props
-   * @returns {array}
+   * @returns {object}
    */
   colors(props) {
-    const modifiers = [];
+    const modifiers = {};
     this.colorModifiers.forEach((modifier) => {
-      if (props[modifier]) {
-        modifiers.push(kebabToCamel(modifier));
+      if (props[kebabToCamel(modifier)]) {
+        modifiers[modifier] = true;
       }
     });
 
@@ -62,13 +62,13 @@ export default {
    * Generate the size modifiers with the given props.
    *
    * @param {any} props
-   * @returns {array}
+   * @returns {object}
    */
   sizes(props) {
-    const modifiers = [];
+    const modifiers = {};
     this.sizeModifiers.forEach((modifier) => {
-      if (props[modifier]) {
-        modifiers.push(kebabToCamel(modifier));
+      if (props[kebabToCamel(modifier)]) {
+        modifiers[modifier] = true;
       }
     });
 

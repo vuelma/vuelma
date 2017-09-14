@@ -1,7 +1,7 @@
 <template>
   <nav
     class="Navbar navbar"
-    :class="{ 'is-transparent': transparent }"
+    :class="modifiers"
     v-click-outside="hide"
   >
     <div class="Navbar__brand navbar-brand">
@@ -42,7 +42,7 @@ export default {
     /**
      * Bulma-specific options.
      */
-    transparent: Boolean,
+    isTransparent: Boolean,
     hasBurger: Boolean,
   },
   data() {
@@ -54,6 +54,11 @@ export default {
     isActiveClass() {
       return {
         'is-active': this.isActive,
+      };
+    },
+    modifiers() {
+      return {
+        'is-transparent': this.isTransparent,
       };
     },
   },

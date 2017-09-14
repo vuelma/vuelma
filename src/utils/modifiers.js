@@ -38,4 +38,40 @@ export default {
 
     return modifiers;
   },
+
+  /**
+   * The modifiers available for sizes.
+   */
+  sizeModifiers: ['is-small', 'is-medium', 'is-large'],
+
+  /**
+   * Generate the props validation rules for size modifiers.
+   *
+   * @returns {object}
+   */
+  sizeProps() {
+    const props = {};
+    this.colorModifiers.forEach((modifier) => {
+      props[kebabToCamel(modifier)] = Boolean;
+    });
+
+    return props;
+  },
+
+  /**
+   * Generate the size modifiers with the given props.
+   *
+   * @param {any} props
+   * @returns {array}
+   */
+  sizes(props) {
+    const modifiers = [];
+    this.sizeModifiers.forEach((modifier) => {
+      if (props[modifier]) {
+        modifiers.push(kebabToCamel(modifier));
+      }
+    });
+
+    return modifiers;
+  },
 };

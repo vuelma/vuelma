@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import modifiers from '@/utils/modifiers';
+
 export default {
   name: 'notification',
   props: {
@@ -53,17 +55,19 @@ export default {
     },
 
     /**
-     * Custom classes/modifiers for the component.
+     * Bulma-specific modifiers
      */
-    modifiers: {
-      type: [Array, String],
-      default: () => ([]),
-    },
+    ...modifiers.colorProps(),
   },
   data() {
     return {
       closeTimeout: null,
     };
+  },
+  computed: {
+    modifiers() {
+      modifiers.colors(this.$props);
+    },
   },
   watch: {
     show() {

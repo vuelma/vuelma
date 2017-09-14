@@ -57,7 +57,7 @@ export default {
     /**
      * Bulma-specific modifiers
      */
-    ...modifiers.colorProps(),
+    ...modifiers.props([...modifiers.colors]),
   },
   data() {
     return {
@@ -66,7 +66,7 @@ export default {
   },
   computed: {
     modifiers() {
-      return modifiers.colors(this.$props);
+      return modifiers.generate([...modifiers.colors], this.$props);
     },
   },
   watch: {

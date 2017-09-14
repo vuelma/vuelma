@@ -101,17 +101,11 @@ export default {
     /**
      * Bulma-specific options.
      */
-    isCentered: Boolean,
-    isRight: Boolean,
-    ...modifiers.sizeProps(),
+    ...modifiers.props([...modifiers.sizes, ...modifiers.alignments]),
   },
   computed: {
     modifiers() {
-      return {
-        'is-centered': this.isCentered,
-        'is-right': this.isRight,
-        ...modifiers.sizes(this.$props),
-      };
+      return modifiers.generate([...modifiers.sizes, ...modifiers.alignments], this.$props);
     },
     lastPage() {
       return Math.floor(this.totalItems / this.pageSize);

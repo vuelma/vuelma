@@ -26,6 +26,12 @@
 <script>
 import modifiers from '@/utils/modifiers';
 
+const componentModifiers = [
+  'is-boxed', 'is-toggle', 'is-fullwidth',
+  ...modifiers.sizes,
+  ...modifiers.alignments,
+];
+
 export default {
   name: 'tabs',
   props: {
@@ -48,12 +54,7 @@ export default {
     /**
      *  Bulma-specific options
      */
-    isCentered: Boolean,
-    isRight: Boolean,
-    isBoxed: Boolean,
-    isToggle: Boolean,
-    isFullwidth: Boolean,
-    ...modifiers.sizeProps(),
+    ...modifiers.props(componentModifiers),
   },
   data() {
     return {
@@ -63,12 +64,7 @@ export default {
   computed: {
     modifiers() {
       return {
-        'is-centered': this.isCentered,
-        'is-right': this.isRight,
-        'is-boxed': this.isBoxed,
-        'is-toggle': this.isToggle,
-        'is-fullwidth': this.isFullwidth,
-        ...modifiers.sizes(this.$props),
+        ...modifiers.generate(componentModifiers, this.$props),
       };
     },
   },

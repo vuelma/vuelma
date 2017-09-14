@@ -1,7 +1,7 @@
 <template>
   <nav
     class="Navbar navbar"
-    :class="{ 'is-transparent': isTransparent }"
+    :class="{ 'is-transparent': transparent }"
     v-click-outside="hide"
   >
     <div class="Navbar__brand navbar-brand">
@@ -19,7 +19,11 @@
       </div>
     </div>
 
-    <div class="Navbar__menu navbar-menu" :class="isActiveClass">
+    <div
+      class="Navbar__menu navbar-menu"
+      :class="isActiveClass"
+      @click="hide"
+    >
       <div class="Navbar__start navbar-start">
         <slot name="navbar-start"></slot>
       </div>
@@ -38,7 +42,7 @@ export default {
     /**
      * Bulma-specific options.
      */
-    isTransparent: Boolean,
+    transparent: Boolean,
     hasBurger: Boolean,
   },
   data() {
@@ -54,9 +58,16 @@ export default {
     },
   },
   methods: {
+    /**
+     * Toggle the navbar menu.
+     */
     toggle() {
       this.isActive = !this.isActive;
     },
+
+    /**
+     * Hide the navbar menu.
+     */
     hide() {
       this.isActive = false;
     },

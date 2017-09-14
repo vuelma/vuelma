@@ -66,7 +66,7 @@ export default {
   },
   computed: {
     modifiers() {
-      modifiers.colors(this.$props);
+      return modifiers.colors(this.$props);
     },
   },
   watch: {

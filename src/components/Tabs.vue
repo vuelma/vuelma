@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import modifiers from '@/utils/modifiers';
+
 export default {
   name: 'tabs',
   props: {
@@ -48,12 +50,10 @@ export default {
      */
     isCentered: Boolean,
     isRight: Boolean,
-    isSmall: Boolean,
-    isMedium: Boolean,
-    isLarge: Boolean,
     isBoxed: Boolean,
     isToggle: Boolean,
     isFullwidth: Boolean,
+    ...modifiers.sizeProps(),
   },
   data() {
     return {
@@ -65,12 +65,10 @@ export default {
       return {
         'is-centered': this.isCentered,
         'is-right': this.isRight,
-        'is-small': this.isSmall,
-        'is-medium': this.isMedium,
-        'is-large': this.isLarge,
         'is-boxed': this.isBoxed,
         'is-toggle': this.isToggle,
         'is-fullwidth': this.isFullwidth,
+        ...modifiers.sizes(this.$props),
       };
     },
   },

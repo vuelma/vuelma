@@ -6,16 +6,25 @@ export default {
   /**
    * The modifiers available for colors.
    */
-  colorModifiers: ['is-primary', 'is-info', 'is-success', 'is-warning', 'is-danger'],
+  colors: ['is-primary', 'is-info', 'is-success', 'is-warning', 'is-danger'],
 
+  /**
+   * The modifiers available for sizes.
+   */
+  sizes: ['is-small', 'is-medium', 'is-large'],
+
+  /**
+   * The modifiers available for alignments.
+   */
+  alignments: ['is-centered', 'is-right'],
   /**
    * Generate the props validation rules for color modifiers.
    *
    * @returns {object}
    */
-  colorProps() {
+  props(modifiers) {
     const props = {};
-    this.colorModifiers.forEach((modifier) => {
+    modifiers.forEach((modifier) => {
       props[kebabToCamel(modifier)] = Boolean;
     });
 
@@ -23,55 +32,19 @@ export default {
   },
 
   /**
-   * Generate the color modifiers with the given props.
+   * Generate the modifiers with the given modifiers listing and props.
    *
    * @param {any} props
    * @returns {object}
    */
-  colors(props) {
-    const modifiers = {};
-    this.colorModifiers.forEach((modifier) => {
+  generate(modifiers, props) {
+    const generatedModifiers = {};
+    modifiers.forEach((modifier) => {
       if (props[kebabToCamel(modifier)]) {
-        modifiers[modifier] = true;
+        generatedModifiers[modifier] = true;
       }
     });
 
-    return modifiers;
-  },
-
-  /**
-   * The modifiers available for sizes.
-   */
-  sizeModifiers: ['is-small', 'is-medium', 'is-large'],
-
-  /**
-   * Generate the props validation rules for size modifiers.
-   *
-   * @returns {object}
-   */
-  sizeProps() {
-    const props = {};
-    this.colorModifiers.forEach((modifier) => {
-      props[kebabToCamel(modifier)] = Boolean;
-    });
-
-    return props;
-  },
-
-  /**
-   * Generate the size modifiers with the given props.
-   *
-   * @param {any} props
-   * @returns {object}
-   */
-  sizes(props) {
-    const modifiers = {};
-    this.sizeModifiers.forEach((modifier) => {
-      if (props[kebabToCamel(modifier)]) {
-        modifiers[modifier] = true;
-      }
-    });
-
-    return modifiers;
+    return generatedModifiers;
   },
 };

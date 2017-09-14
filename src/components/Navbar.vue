@@ -1,5 +1,9 @@
 <template>
-  <nav class="Navbar navbar" :class="{ 'is-transparent': isTransparent }">
+  <nav
+    class="Navbar navbar"
+    :class="{ 'is-transparent': isTransparent }"
+    v-click-outside="hide"
+  >
     <div class="Navbar__brand navbar-brand">
       <slot name="navbar-brand"></slot>
 
@@ -7,7 +11,7 @@
         class="Navbar__burger navbar-burger"
         :class="isActiveClass"
         v-if="hasBurger"
-        @click="isActive = !isActive"
+        @click="toggle"
       >
         <span></span>
         <span></span>
@@ -47,6 +51,14 @@ export default {
       return {
         'is-active': this.isActive,
       };
+    },
+  },
+  methods: {
+    toggle() {
+      this.isActive = !this.isActive;
+    },
+    hide() {
+      this.isActive = false;
     },
   },
 };

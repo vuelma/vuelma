@@ -3,8 +3,9 @@
     <ul>
       <li
         v-for="item in items"
-        @click="onItemClick(item)"
         :class="{ 'is-active': mutableActiveItem === item.name }"
+        :key="item.label"
+        @click="onItemClick(item)"
       >
         <a>
           <span v-if="item.icon"

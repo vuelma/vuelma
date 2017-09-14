@@ -59,6 +59,8 @@
 </template>
 
 <script>
+import modifiers from '@/utils/modifiers';
+
 export default {
   name: 'pagination',
   props: {
@@ -99,20 +101,16 @@ export default {
     /**
      * Bulma-specific options.
      */
-    isSmall: Boolean,
-    isMedium: Boolean,
-    isLarge: Boolean,
     isCentered: Boolean,
     isRight: Boolean,
+    ...modifiers.sizeProps(),
   },
   computed: {
     modifiers() {
       return {
-        'is-small': this.isSmall,
-        'is-medium': this.isMedium,
-        'is-large': this.isLarge,
         'is-centered': this.isCentered,
         'is-right': this.isRight,
+        ...modifiers.sizes(this.$props),
       };
     },
     lastPage() {

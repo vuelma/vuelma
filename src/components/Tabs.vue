@@ -3,8 +3,9 @@
     <ul>
       <li
         v-for="item in items"
-        @click="onItemClick(item)"
         :class="{ 'is-active': mutableActiveItem === item.name }"
+        :key="item.label"
+        @click="onItemClick(item)"
       >
         <a>
           <span v-if="item.icon"
@@ -23,6 +24,14 @@
 </template>
 
 <script>
+import modifiers from '@/utils/modifiers';
+
+const componentModifiers = [
+  'is-boxed', 'is-toggle', 'is-fullwidth',
+  ...modifiers.sizes,
+  ...modifiers.alignments,
+];
+
 export default {
   name: 'tabs',
   props: {
@@ -45,14 +54,7 @@ export default {
     /**
      *  Bulma-specific options
      */
-    isCentered: Boolean,
-    isRight: Boolean,
-    isSmall: Boolean,
-    isMedium: Boolean,
-    isLarge: Boolean,
-    isBoxed: Boolean,
-    isToggle: Boolean,
-    isFullwidth: Boolean,
+    ...modifiers.props(componentModifiers),
   },
   data() {
     return {
@@ -62,14 +64,7 @@ export default {
   computed: {
     modifiers() {
       return {
-        'is-centered': this.isCentered,
-        'is-right': this.isRight,
-        'is-small': this.isSmall,
-        'is-medium': this.isMedium,
-        'is-large': this.isLarge,
-        'is-boxed': this.isBoxed,
-        'is-toggle': this.isToggle,
-        'is-fullwidth': this.isFullwidth,
+        ...modifiers.generate(componentModifiers, this.$props),
       };
     },
   },

@@ -3,7 +3,7 @@
     <ul>
       <li
         v-for="item in items"
-        :class="{ 'is-active': mutableActiveItem === item.name }"
+        :class="{ 'is-active': activeItem === item.name }"
         :key="item.label"
         @click="onItemClick(item)"
       >
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import modifiers from '@/utils/modifiers';
+import modifiers from '../utils/modifiers';
 
 const componentModifiers = [
   'is-boxed', 'is-toggle', 'is-fullwidth',
@@ -56,11 +56,6 @@ export default {
      */
     ...modifiers.props(componentModifiers),
   },
-  data() {
-    return {
-      mutableActiveItem: this.activeItem,
-    };
-  },
   computed: {
     modifiers() {
       return {
@@ -70,10 +65,7 @@ export default {
   },
   methods: {
     onItemClick(item) {
-      if (this.mutableActiveItem !== item.name) {
-        this.$emit('tabs:change', item.name);
-        this.mutableActiveItem = item.name;
-      }
+      this.$emit('click:item', item);
     },
   },
 };

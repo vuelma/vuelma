@@ -50,6 +50,12 @@
 </template>
 
 <script>
+import modifiers from '../utils/modifiers';
+
+const componentModifiers = [
+  'is-hoverable', 'is-right',
+];
+
 export default {
   name: 'dropdown',
   props: {
@@ -62,18 +68,17 @@ export default {
     },
 
     /**
-     * Bulma-specific mofidiers.
-     */
-    isHoverable: Boolean,
-    isRight: Boolean,
-
-    /**
      * Bulma modifiers to append to the button.
      */
     buttonModifiers: {
       type: [Array, String],
       default: () => ([]),
     },
+
+    /**
+     *  Bulma-specific options
+     */
+    ...modifiers.props(componentModifiers),
   },
   data() {
     return {
@@ -82,11 +87,7 @@ export default {
   },
   computed: {
     modifiers() {
-      return {
-        'is-hoverable': this.isHoverable,
-        'is-active': this.isActive,
-        'is-right': this.isRight,
-      };
+      return modifiers.generate(['is-active', ...componentModifiers], this.$props);
     },
   },
   methods: {

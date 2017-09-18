@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import modifiers from '@/utils/modifiers';
+import modifiers from '../utils/modifiers';
 
 export default {
   name: 'notification',

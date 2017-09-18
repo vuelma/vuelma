@@ -1,30 +1,20 @@
 <template>
   <div class="Tabs tabs" :class="modifiers">
     <ul>
-      <li
-        v-for="item in items"
-        :class="{ 'is-active': mutableActiveItem === item.name }"
-        :key="item.label"
-        @click="onItemClick(item)"
-      >
-        <a>
-          <span v-if="item.icon"
-            :class="[
-              'icon',
-              (typeof item.icon === 'string') ? 'is-small' : item.icon.modifiers,
-            ]"
-          >
-            <i :class="[`fa fa-${(typeof item.icon === 'string') ? item.icon : item.icon.name}`]"></i>
-          </span>
-          <span>{{ item.label }}</span>
-        </a>
-      </li>
+      <item
+        v-for="(item, index) in items"
+        :key="item.name"
+        :is-active="activeItem === item.name"
+        v-bind="item"
+        @click:item="onItemClick"
+      ></item>
     </ul>
   </div>
 </template>
 
 <script>
-import modifiers from '@/utils/modifiers';
+import modifiers from '../utils/modifiers';
+import Item from './Tabs/Item';
 
 const componentModifiers = [
   'is-boxed', 'is-toggle', 'is-fullwidth',
@@ -34,6 +24,9 @@ const componentModifiers = [
 
 export default {
   name: 'tabs',
+  components: {
+    Item,
+  },
   props: {
     /**
      * The items to be listed inside the tabs component
@@ -56,11 +49,6 @@ export default {
      */
     ...modifiers.props(componentModifiers),
   },
-  data() {
-    return {
-      mutableActiveItem: this.activeItem,
-    };
-  },
   computed: {
     modifiers() {
       return {
@@ -70,10 +58,7 @@ export default {
   },
   methods: {
     onItemClick(item) {
-      if (this.mutableActiveItem !== item.name) {
-        this.$emit('tabs:change', item.name);
-        this.mutableActiveItem = item.name;
-      }
+      this.$emit('click:item', item);
     },
   },
 };

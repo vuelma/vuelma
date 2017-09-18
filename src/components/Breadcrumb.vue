@@ -5,30 +5,20 @@
     aria-label="breadcrumbs"
   >
     <ul>
-      <li
+      <item
         v-for="(item, index) in items"
-        :key="item.name ? item.name : item.label.toLowerCase()"
-        :class="{ 'is-active': index === items.length - 1 }"
-      >
-        <a @click="item.callback ? item.callback : () => {}">
-          <span
-            v-if="item.icon"
-            :class="[
-              'icon',
-              (typeof item.icon === 'string') ? 'is-small' : item.icon.modifiers,
-            ]"
-          >
-            <i :class="[`fa fa-${(typeof item.icon === 'string') ? item.icon : item.icon.name}`]"></i>
-          </span>
-          <span v-html="item.label"></span>
-        </a>
-      </li>
+        :key="item.name"
+        :is-active="index === items.length - 1"
+        v-bind="item"
+        @click:item="onItemClick"
+      ></item>
     </ul>
   </nav>
 </template>
 
 <script>
-import modifiers from '@/utils/modifiers';
+import modifiers from '../utils/modifiers';
+import Item from './Breadcrumb/Item';
 
 const componentModifiers = [
   'has-arrow-separator', 'has-bullet-separator', 'has-dot-separator', 'has-succeeds-separator',
@@ -37,8 +27,14 @@ const componentModifiers = [
 ];
 
 export default {
-  name: 'vuelma-breadcrumb',
+  name: 'breadcrumb',
+  components: {
+    Item,
+  },
   props: {
+    /**
+     * The items to be listed inside the breadcrumb component.
+     */
     items: {
       type: Array,
       required: true,
@@ -52,6 +48,11 @@ export default {
   computed: {
     modifiers() {
       return modifiers.generate(componentModifiers, this.$props);
+    },
+  },
+  methods: {
+    onItemClick(item) {
+      this.$emit('click:item', item);
     },
   },
 };

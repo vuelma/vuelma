@@ -1,6 +1,6 @@
 {
   "name": "vuelma",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Bulma components for Vue.js",
   "keywords": [
     "vue",
@@ -113,5 +113,6 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "dependencies": {}
 }

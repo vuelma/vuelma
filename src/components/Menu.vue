@@ -12,24 +12,24 @@
         class="menu-list"
         :key="item.name"
       >
-        <list-item
+        <item
           v-for="item in item.list"
           v-bind="item"
           :key="item.name"
-        ></list-item>
+        ></item>
       </ul>
     </template>
   </aside>
 </template>
 
 <script>
-import bus from '@/utils/bus';
-import ListItem from './ListItem';
+import bus from '../utils/bus';
+import Item from './Menu/Item';
 
 export default {
-  name: 'vuelma-menu',
+  name: 'menu',
   components: {
-    ListItem,
+    Item,
   },
   props: {
     /**

@@ -8,23 +8,22 @@
 
     <transition :name="transition">
       <ul v-show="hasList && displayList">
-        <vuelma-menu-list-item
+        <menu-item
           v-for="item in list"
           :key="item.name"
           :label="item.label"
           :name="item.name"
-          :callback="item.callback"
-        ></vuelma-menu-list-item>
+        ></menu-item>
       </ul>
     </transition>
   </li>
 </template>
 
 <script>
-import bus from '@/utils/bus';
+import bus from '../../utils/bus';
 
 export default {
-  name: 'vuelma-menu-list-item',
+  name: 'menu-item',
   props: {
     /**
      * The Bulma specific menu item properties
@@ -33,8 +32,10 @@ export default {
     transition: String,
     list: Array,
     initiallyOpened: Boolean,
-    callback: Function,
-    name: String,
+    name: {
+      type: String,
+      required: true,
+    },
   },
   data() {
     return {
@@ -66,9 +67,7 @@ export default {
   },
   methods: {
     clickItem() {
-      if (!this.hasList && typeof this.callback === 'function') {
-        this.callback(this.$props);
-      } else if (this.hasList) {
+      if (this.hasList) {
         this.displayList = !this.displayList;
       }
       bus.$emit('click:item', this.$props);

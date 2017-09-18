@@ -19,7 +19,6 @@
         ></list-item>
       </ul>
     </template>
-    {{ items }}
   </aside>
 </template>
 
@@ -33,10 +32,23 @@ export default {
     ListItem,
   },
   props: {
+    /**
+     * The items to be listed inside the menu component.
+     */
     items: {
       type: Array,
       required: true,
     },
+
+    /**
+     * The item name to have the is-active class.
+     */
+    activeItem: String,
+
+    /**
+     * Determines if the parent item will also be active if a child is active.
+     */
+    shouldActiveParent: Boolean,
   },
   methods: {
     clickItem(item) {

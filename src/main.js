@@ -5,22 +5,6 @@ import App from './App';
 import router from './router';
 
 Vue.config.productionTip = false;
-Vue.directive('click-outside', {
-  inserted: (el, binding) => {
-    document.addEventListener('click', (event) => {
-      const parentNodes = [];
-      let node = event.target.parentNode;
-      while (node) {
-        parentNodes.push(node);
-        node = node.parentNode;
-      }
-
-      if (!parentNodes.includes(el)) {
-        binding.value();
-      }
-    });
-  },
-});
 
 /* eslint-disable no-new */
 new Vue({

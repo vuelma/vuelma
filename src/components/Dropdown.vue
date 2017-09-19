@@ -43,6 +43,7 @@
 <script>
 import Item from './Dropdown/Item';
 import modifiers from '../utils/modifiers';
+import clickOutside from '../directives/clickOutside';
 
 const componentModifiers = [
   'is-hoverable', 'is-right',
@@ -79,6 +80,9 @@ export default {
      *  Bulma-specific options
      */
     ...modifiers.props(componentModifiers),
+  },
+  directives: {
+    clickOutside,
   },
   data() {
     return {

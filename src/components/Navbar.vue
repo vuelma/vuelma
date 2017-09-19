@@ -37,6 +37,7 @@
 
 <script>
 import modifiers from '../utils/modifiers';
+import clickOutside from '../directives/clickOutside';
 
 const componentModifiers = [
   'is-transparent',
@@ -50,6 +51,9 @@ export default {
      */
     hasBurger: Boolean,
     ...modifiers.props(componentModifiers),
+  },
+  directives: {
+    clickOutside,
   },
   data() {
     return {

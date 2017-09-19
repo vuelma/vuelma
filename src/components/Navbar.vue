@@ -36,14 +36,20 @@
 </template>
 
 <script>
+import modifiers from '../utils/modifiers';
+
+const componentModifiers = [
+  'is-transparent',
+];
+
 export default {
   name: 'navbar-component',
   props: {
     /**
-     * Bulma-specific options.
+     *  Bulma-specific options
      */
-    isTransparent: Boolean,
     hasBurger: Boolean,
+    ...modifiers.props(componentModifiers),
   },
   data() {
     return {
@@ -57,9 +63,7 @@ export default {
       };
     },
     modifiers() {
-      return {
-        'is-transparent': this.isTransparent,
-      };
+      return modifiers.generate(componentModifiers, this.$props);
     },
   },
   methods: {

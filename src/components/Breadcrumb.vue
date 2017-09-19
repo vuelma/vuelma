@@ -1,46 +1,42 @@
 <template>
-  <div class="Tabs tabs" :class="modifiers">
+  <nav
+    class="Vuelma__Breadcrumb breadcrumb"
+    :class="modifiers"
+    aria-label="breadcrumbs"
+  >
     <ul>
       <item
         v-for="(item, index) in items"
         :key="item.name"
-        :is-active="activeItem === item.name"
+        :is-active="index === items.length - 1"
         v-bind="item"
       ></item>
     </ul>
-  </div>
+  </nav>
 </template>
 
 <script>
 import modifiers from '../utils/modifiers';
-import Item from './Tabs/Item';
+import Item from './Breadcrumb/Item';
 
 const componentModifiers = [
-  'is-boxed', 'is-toggle', 'is-fullwidth',
-  ...modifiers.sizes,
+  'has-arrow-separator', 'has-bullet-separator', 'has-dot-separator', 'has-succeeds-separator',
   ...modifiers.alignments,
+  ...modifiers.sizes,
 ];
 
 export default {
-  name: 'tabs',
+  name: 'breadcrumb',
   components: {
     Item,
   },
   props: {
     /**
-     * The items to be listed inside the tabs component
+     * The items to be listed inside the breadcrumb component.
      */
     items: {
       type: Array,
       required: true,
-    },
-
-    /**
-     * The initial item with active class
-     */
-    activeItem: {
-      type: String,
-      default: () => '',
     },
 
     /**
@@ -50,9 +46,7 @@ export default {
   },
   computed: {
     modifiers() {
-      return {
-        ...modifiers.generate(componentModifiers, this.$props),
-      };
+      return modifiers.generate(componentModifiers, this.$props);
     },
   },
 };

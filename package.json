@@ -1,6 +1,6 @@
 {
   "name": "vuelma",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "description": "Bulma components for Vue.js",
   "keywords": [
     "vue",
@@ -19,11 +19,16 @@
   "contributors": [
     "Isaiah Benjamin G. Cruz <isaiahgcruz@gmail.com>"
   ],
-  "main": "index.js",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
+    "package": "vue build src/index.js --prod --lib",
+    "prepublishOnly": "npm run package",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
@@ -113,5 +118,6 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "dependencies": {}
 }

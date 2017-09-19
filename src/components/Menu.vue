@@ -1,12 +1,11 @@
 <template>
   <aside class="Vuelma__menu menu">
     <template v-for="item in items">
-      <p
-        class="Vuelma__menu-label menu-label"
+      <header-component
         :key="item.name"
-        v-if="item.label.length"
-        v-html="item.label"
-      ></p>
+        :name="item.name"
+        :label="item.label"
+      ></header-component>
 
       <ul
         class="menu-list"
@@ -23,13 +22,15 @@
 </template>
 
 <script>
-import bus from '../utils/bus';
 import Item from './Menu/Item';
+import HeaderComponent from './Menu/Header';
+import bus from '../utils/bus';
 
 export default {
   name: 'menu',
   components: {
     Item,
+    HeaderComponent,
   },
   props: {
     /**

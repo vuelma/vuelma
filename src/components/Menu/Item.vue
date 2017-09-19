@@ -2,7 +2,7 @@
   <li>
     <a
       :class="{ 'is-active': isActive }"
-      v-html="label"
+      v-html="defaultLabel"
       @click="clickItem"
     ></a>
 
@@ -21,21 +21,18 @@
 
 <script>
 import bus from '../../utils/bus';
+import genericItem from '../../mixins/genericItem';
 
 export default {
   name: 'menu-item',
+  mixins: [genericItem],
   props: {
     /**
      * The Bulma specific menu item properties
      */
-    label: String,
     transition: String,
     list: Array,
     initiallyOpened: Boolean,
-    name: {
-      type: String,
-      required: true,
-    },
   },
   data() {
     return {

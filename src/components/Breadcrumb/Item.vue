@@ -6,13 +6,14 @@
         :name="iconName"
         v-bind="iconModifiers"
       ></icon>
-      <span v-html="label"></span>
+      <span v-html="defaultLabel"></span>
     </a>
   </li>
 </template>
 
 <script>
 import modifiers from '../../utils/modifiers';
+import genericItem from '../../mixins/genericItem';
 import Icon from '../Icon';
 
 const iconModifiers = [
@@ -21,17 +22,11 @@ const iconModifiers = [
 
 export default {
   name: 'breadcrumb-item',
+  mixins: [genericItem],
   components: {
     Icon,
   },
   props: {
-    name: {
-      type: String,
-      required: true,
-    },
-    label: {
-      type: String,
-    },
     icon: [String, Object],
     isActive: Boolean,
   },

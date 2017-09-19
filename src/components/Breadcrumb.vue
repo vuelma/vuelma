@@ -10,7 +10,6 @@
         :key="item.name"
         :is-active="index === items.length - 1"
         v-bind="item"
-        @click:item="onItemClick"
       ></item>
     </ul>
   </nav>
@@ -48,11 +47,6 @@ export default {
   computed: {
     modifiers() {
       return modifiers.generate(componentModifiers, this.$props);
-    },
-  },
-  methods: {
-    onItemClick(item) {
-      this.$emit('click:item', item);
     },
   },
 };

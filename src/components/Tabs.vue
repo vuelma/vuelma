@@ -6,7 +6,6 @@
         :key="item.name"
         :is-active="activeItem === item.name"
         v-bind="item"
-        @click:item="onItemClick"
       ></item>
     </ul>
   </div>
@@ -54,11 +53,6 @@ export default {
       return {
         ...modifiers.generate(componentModifiers, this.$props),
       };
-    },
-  },
-  methods: {
-    onItemClick(item) {
-      this.$emit('click:item', item);
     },
   },
 };

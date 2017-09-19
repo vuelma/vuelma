@@ -67,7 +67,7 @@ export default {
   },
   methods: {
     onItemClick() {
-      this.$emit('click:item', this.$props);
+      this.$parent.$emit('click:item', this.$props);
     },
   },
 };

@@ -1,42 +1,55 @@
 <template>
   <aside class="Vuelma__menu menu">
     <template v-for="item in items">
-      <p
-        class="Vuelma__menu-label menu-label"
+      <header-component
         :key="item.name"
-        v-if="item.label.length"
-        v-html="item.label"
-      ></p>
+        :name="item.name"
+        :label="item.label"
+      ></header-component>
 
       <ul
         class="menu-list"
         :key="item.name"
       >
-        <list-item
+        <item
           v-for="item in item.list"
           v-bind="item"
           :key="item.name"
-        ></list-item>
+        ></item>
       </ul>
     </template>
-    {{ items }}
   </aside>
 </template>
 
 <script>
-import bus from '@/utils/bus';
-import ListItem from './ListItem';
+import Item from './Menu/Item';
+import HeaderComponent from './Menu/Header';
+import bus from '../utils/bus';
 
 export default {
-  name: 'vuelma-menu',
+  name: 'menu',
   components: {
-    ListItem,
+    Item,
+    HeaderComponent,
   },
   props: {
+    /**
+     * The items to be listed inside the menu component.
+     */
     items: {
       type: Array,
       required: true,
     },
+
+    /**
+     * The item name to have the is-active class.
+     */
+    activeItem: String,
+
+    /**
+     * Determines if the parent item will also be active if a child is active.
+     */
+    shouldActiveParent: Boolean,
   },
   methods: {
     clickItem(item) {

@@ -28,30 +28,32 @@
 
     <div class="Dropdown__menu dropdown-menu" role="menu">
       <div class="Dropdown__content dropdown-content">
-        <span
-          class="Dropdown__item"
-          :key="item.label || item.slot"
-          v-for="item in items"
-          @click="click(item)"
-        >
-          <slot :name="item.slot">
-            <hr class="Dropdown__divider dropdown-divider" v-if="item.divider">
-            <a
-              class="dropdown-item"
-              :class="{ 'is-active': item.isActive }"
-              v-else
-              v-text="item.label"
-            ></a>
-          </slot>
-        </span>
+        <template v-for="item in items">
+          <item
+            v-bind="item"
+            :key="item.name"
+            :is-active="activeItem === item.name"
+          ></item>
+        </template>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Item from './Dropdown/Item';
+import modifiers from '../utils/modifiers';
+import clickOutside from '../directives/clickOutside';
+
+const componentModifiers = [
+  'is-hoverable', 'is-right',
+];
+
 export default {
   name: 'dropdown',
+  components: {
+    Item,
+  },
   props: {
     /**
      * The items that are displayed in the dropdown menu.
@@ -62,10 +64,9 @@ export default {
     },
 
     /**
-     * Bulma-specific mofidiers.
+     * The name of the active item.
      */
-    isHoverable: Boolean,
-    isRight: Boolean,
+    activeItem: String,
 
     /**
      * Bulma modifiers to append to the button.
@@ -74,6 +75,14 @@ export default {
       type: [Array, String],
       default: () => ([]),
     },
+
+    /**
+     *  Bulma-specific options
+     */
+    ...modifiers.props(componentModifiers),
+  },
+  directives: {
+    clickOutside,
   },
   data() {
     return {
@@ -83,26 +92,12 @@ export default {
   computed: {
     modifiers() {
       return {
-        'is-hoverable': this.isHoverable,
         'is-active': this.isActive,
-        'is-right': this.isRight,
+        ...modifiers.generate([...componentModifiers], this.$props),
       };
     },
   },
   methods: {
-    /**
-     * Call the callback function of the dropdown item.
-     */
-    click(item) {
-      if (item.hide === undefined || item.hide) {
-        this.hide();
-      }
-
-      if (typeof item.click === 'function') {
-        item.click(item);
-      }
-    },
-
     /**
      * Hide the dropdown menu.
      */

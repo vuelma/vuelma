@@ -36,14 +36,24 @@
 </template>
 
 <script>
+import modifiers from '../utils/modifiers';
+import clickOutside from '../directives/clickOutside';
+
+const componentModifiers = [
+  'is-transparent',
+];
+
 export default {
   name: 'navbar-component',
   props: {
     /**
-     * Bulma-specific options.
+     *  Bulma-specific options
      */
-    isTransparent: Boolean,
     hasBurger: Boolean,
+    ...modifiers.props(componentModifiers),
+  },
+  directives: {
+    clickOutside,
   },
   data() {
     return {
@@ -57,9 +67,7 @@ export default {
       };
     },
     modifiers() {
-      return {
-        'is-transparent': this.isTransparent,
-      };
+      return modifiers.generate(componentModifiers, this.$props);
     },
   },
   methods: {

@@ -18,7 +18,7 @@
     </template>
 
     <ul class="Pagination__list pagination-list">
-      <template v-if="hasLeftEllipsis">
+      <template v-if="showFirstPage">
         <li>
             <a
               class="Pagination__link pagination-link"
@@ -28,7 +28,9 @@
               1
             </a>
         </li>
-        <li><span class="Pagination__ellipsis pagination-ellipsis">&hellip;</span></li>
+        <li v-show="showLeftEllipsis">
+          <span class="Pagination__ellipsis pagination-ellipsis">&hellip;</span>
+        </li>
       </template>
 
       <li v-for="page in visiblePages" :key="page">
@@ -42,8 +44,10 @@
         </a>
       </li>
 
-      <template v-if="hasRightEllipsis">
-        <li><span class="Pagination__ellipsis pagination-ellipsis">&hellip;</span></li>
+      <template v-if="showLastPage">
+        <li v-show="showRightEllipsis">
+          <span class="Pagination__ellipsis pagination-ellipsis">&hellip;</span>
+        </li>
         <li>
             <a
               class="Pagination__link pagination-link"
@@ -111,7 +115,7 @@ export default {
       return Math.floor(this.totalItems / this.pageSize);
     },
     visiblePagesCount() {
-      return (this.padding * 2) + 1;
+      return Math.min((this.padding * 2) + 1, this.lastPage);
     },
     hasNextPage() {
       return this.currentPage < this.lastPage || !this.totalItems;
@@ -119,11 +123,19 @@ export default {
     hasPreviousPage() {
       return this.currentPage > 1;
     },
-    hasLeftEllipsis() {
-      return this.currentPage > this.padding + 1;
+    showFirstPage() {
+      return (this.currentPage > this.padding + 1)
+        && this.visiblePagesCount < this.lastPage;
     },
-    hasRightEllipsis() {
-      return this.currentPage < this.lastPage - this.padding;
+    showLeftEllipsis() {
+      return this.visiblePages[0] > 2;
+    },
+    showLastPage() {
+      return (this.currentPage < this.lastPage - this.padding)
+        && this.visiblePagesCount < this.lastPage;
+    },
+    showRightEllipsis() {
+      return this.visiblePages[this.visiblePagesCount - 1] < this.lastPage - 1;
     },
     visiblePages() {
       const visiblePages = [];

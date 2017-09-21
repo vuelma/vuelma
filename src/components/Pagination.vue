@@ -112,7 +112,7 @@ export default {
       return modifiers.generate([...modifiers.sizes, ...modifiers.alignments], this.$props);
     },
     lastPage() {
-      return Math.floor(this.totalItems / this.pageSize);
+      return Math.ceil(this.totalItems / this.pageSize);
     },
     visiblePagesCount() {
       return Math.min((this.padding * 2) + 1, this.lastPage);

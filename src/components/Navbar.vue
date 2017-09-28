@@ -9,8 +9,7 @@
         v-for="brandItem in brandItems"
         v-bind="brandItem"
         :key="brandItem.name"
-        :is-active="activeItem === brandItem.name"
-        @click="clickItem(brandItem)"
+        :active-item="activeItem"
       >
         <slot :name="brandItem.name" :item="brandItem"></slot>
       </navbar-item>
@@ -37,8 +36,7 @@
           v-for="startItem in startItems"
           v-bind="startItem"
           :key="startItem.name"
-          :is-active="activeItem === startItem.name"
-          @click="clickItem(startItem)"
+          :active-item="activeItem"
         >
           <slot :name="startItem.name" :item="startItem"></slot>
         </navbar-item>
@@ -49,8 +47,7 @@
           v-for="endItem in endItems"
           v-bind="endItem"
           :key="endItem.name"
-          :is-active="activeItem === endItem.name"
-          @click="clickItem(endItem)"
+          :active-item="activeItem"
         >
           <slot :name="endItem.name" :item="endItem"></slot>
         </navbar-item>
@@ -61,6 +58,7 @@
 
 <script>
 import NavbarItem from '@/components/Navbar/Item';
+import bus from '@/utils/bus';
 import modifiers from '@/utils/modifiers';
 import clickOutside from '@/directives/clickOutside';
 
@@ -107,6 +105,9 @@ export default {
     return {
       isActive: false,
     };
+  },
+  mounted() {
+    bus.$on('click', this.clickItem);
   },
   computed: {
     isActiveClass() {

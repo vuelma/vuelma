@@ -10,6 +10,16 @@
         {
           name: 'docs',
           label: 'Docs',
+          items: [
+            {
+              name: 'components',
+              label: 'Components',
+            },
+            {
+              name: 'elements',
+              label: 'Elements',
+            },
+          ],
         },
       ]"
       :startItems="[
@@ -36,7 +46,7 @@
       @click:item="(item) => activeItem = item.name"
     >
       <template scope="props" slot="home">
-        Custom Slot
+        Custom Slot {{ props.item.name }}
       </template>
     </navbar>
 

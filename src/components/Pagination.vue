@@ -118,7 +118,7 @@ export default {
       return Math.min((this.padding * 2) + 1, this.lastPage);
     },
     hasNextPage() {
-      return this.currentPage < this.lastPage || !this.totalItems;
+      return this.currentPage < this.lastPage || this.totalItems === null;
     },
     hasPreviousPage() {
       return this.currentPage > 1;

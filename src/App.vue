@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <navbar
+      is-info
       has-burger
       :brandItems="[
         {
@@ -10,10 +11,16 @@
         {
           name: 'docs',
           label: 'Docs',
+          isRight: true,
+          isBoxed: true,
           items: [
             {
               name: 'components',
               label: 'Components',
+            },
+            {
+              name: 'divider1',
+              isDivider: true,
             },
             {
               name: 'elements',
@@ -47,6 +54,13 @@
     >
       <template scope="props" slot="home">
         Custom Slot {{ props.item.name }}
+      </template>
+
+      <template scope="props" slot="docs">
+        Docs
+        <template slot="components">
+          Eh
+        </template>
       </template>
     </navbar>
 

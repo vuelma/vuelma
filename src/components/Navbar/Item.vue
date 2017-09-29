@@ -5,17 +5,28 @@
     @click.stop="click"
   >
     <template v-if="hasDropdown">
-      <a class="navbar-link" v-html="label"></a>
+      <a class="navbar-link">
+        <slot>{{ label }}</slot>
+      </a>
       <div
-        class="navbar-dropdown"
+        class="Navbar__dropdown navbar-dropdown"
+        :class="dropdownModifiers"
         v-click-outside="hide"
       >
-        <navbar-item
+        <template
           v-for="item in items"
-          v-bind="item"
-          :key="item.name"
-          :active-item="activeItem"
-        ></navbar-item>
+        >
+          <navbar-item
+            v-if="!item.isDivider"
+            v-bind="item"
+            :key="item.name"
+            :active-item="activeItem"
+          >
+            <slot :name="item.name" :item="item"></slot>
+          </navbar-item>
+
+          <hr class="is-divider" v-else :key="item.name">
+        </template>
       </div>
     </template>
 
@@ -59,9 +70,24 @@ export default {
     },
 
     /**
-     * Determine if the dropdown opens on hover.
+     * Determines if the dropdown opens on hover.
      */
     isHoverable: Boolean,
+
+    /**
+     * Determines if the item is a divider.
+     */
+    isDivider: Boolean,
+
+    /**
+     * Determines if the dropdown menu is at the right.
+     */
+    isRight: Boolean,
+
+    /**
+     * Determines if the dropdown menu is boxed.
+     */
+    isBoxed: Boolean,
   },
   directives: {
     clickOutside,
@@ -86,6 +112,12 @@ export default {
         'is-active': this.isActive,
         'has-dropdown': this.hasDropdown,
         'is-hoverable': this.isHoverable,
+      };
+    },
+    dropdownModifiers() {
+      return {
+        'is-right': this.isRight,
+        'is-boxed': this.isBoxed,
       };
     },
   },

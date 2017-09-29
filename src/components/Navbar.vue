@@ -64,6 +64,7 @@ import clickOutside from '@/directives/clickOutside';
 
 const componentModifiers = [
   'is-transparent',
+  ...modifiers.colors,
 ];
 
 export default {

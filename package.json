@@ -1,6 +1,6 @@
 {
   "name": "vuelma",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Bulma components for Vue.js",
   "keywords": [
     "vue",
@@ -44,7 +44,7 @@
     "babel-preset-env": "^1.3.2",
     "babel-preset-stage-2": "^6.22.0",
     "babel-register": "^6.22.0",
-    "bulma": "^0.5.1",
+    "bulma": "^0.5.3",
     "chai": "^3.5.0",
     "chalk": "^1.1.3",
     "chromedriver": "^2.27.2",
@@ -106,7 +106,7 @@
     "webpack-merge": "^4.1.0"
   },
   "peerDependencies": {
-    "bulma": "^0.5.1",
+    "bulma": "^0.5.3",
     "font-awesome": "^4.7.0",
     "vue": "^2.4.2"
   },

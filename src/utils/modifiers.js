@@ -6,7 +6,17 @@ export default {
   /**
    * The modifiers available for colors.
    */
-  colors: ['is-primary', 'is-info', 'is-success', 'is-warning', 'is-danger'],
+  colors: [
+    'is-primary',
+    'is-info',
+    'is-success',
+    'is-warning',
+    'is-danger',
+    'is-black',
+    'is-dark',
+    'is-white',
+    'is-light',
+  ],
 
   /**
    * The modifiers available for sizes.

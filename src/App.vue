@@ -1,13 +1,23 @@
 <template>
   <div id="app">
-    <navbar is-transparent has-burger>
-      <template slot="navbar-brand">
-        <router-link to="/" class="navbar-item">vuelma</router-link>
-      </template>
-
-      <template slot="navbar-start">
-        <router-link to="/" class="navbar-item" exact>Home</router-link>
-        <router-link to="/docs" class="navbar-item">Docs</router-link>
+    <navbar
+      is-info
+      has-burger
+      :brandItems="[
+        {
+          name: 'home',
+          label: 'Home',
+        },
+        {
+          name: 'docs',
+          label: 'Docs',
+        },
+      ]"
+      :active-item="activeItem"
+      @click:item="navbarItemClick"
+    >
+      <template scope="props" slot="home">
+        vuelma
       </template>
     </navbar>
 
@@ -22,6 +32,17 @@ export default {
   name: 'app',
   components: {
     Navbar,
+  },
+  data() {
+    return {
+      activeItem: 'home',
+    };
+  },
+  methods: {
+    navbarItemClick(item) {
+      this.activeItem = item.name;
+      this.$router.push({ name: item.name });
+    },
   },
 };
 </script>

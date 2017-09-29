@@ -21,9 +21,7 @@
             v-bind="item"
             :key="item.name"
             :active-item="activeItem"
-          >
-            <slot :name="item.name" :item="item"></slot>
-          </navbar-item>
+          ></navbar-item>
 
           <hr class="is-divider" v-else :key="item.name">
         </template>

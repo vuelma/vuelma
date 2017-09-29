@@ -11,56 +11,13 @@
         {
           name: 'docs',
           label: 'Docs',
-          isRight: true,
-          isBoxed: true,
-          items: [
-            {
-              name: 'components',
-              label: 'Components',
-            },
-            {
-              name: 'divider1',
-              isDivider: true,
-            },
-            {
-              name: 'elements',
-              label: 'Elements',
-            },
-          ],
-        },
-      ]"
-      :startItems="[
-        {
-          name: 'home',
-          label: 'Home',
-        },
-        {
-          name: 'docs',
-          label: 'Docs',
-        },
-      ]"
-      :endItems="[
-        {
-          name: 'home',
-          label: 'Home',
-        },
-        {
-          name: 'docs',
-          label: 'Docs',
         },
       ]"
       :active-item="activeItem"
-      @click:item="(item) => activeItem = item.name"
+      @click:item="navbarItemClick"
     >
       <template scope="props" slot="home">
-        Custom Slot {{ props.item.name }}
-      </template>
-
-      <template scope="props" slot="docs">
-        Docs
-        <template slot="components">
-          Eh
-        </template>
+        vuelma
       </template>
     </navbar>
 
@@ -80,6 +37,12 @@ export default {
     return {
       activeItem: 'home',
     };
+  },
+  methods: {
+    navbarItemClick(item) {
+      this.activeItem = item.name;
+      this.$router.push({ name: item.name });
+    },
   },
 };
 </script>

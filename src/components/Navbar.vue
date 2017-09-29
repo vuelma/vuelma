@@ -57,10 +57,10 @@
 </template>
 
 <script>
-import NavbarItem from '@/components/Navbar/Item';
-import bus from '@/utils/bus';
-import modifiers from '@/utils/modifiers';
-import clickOutside from '@/directives/clickOutside';
+import NavbarItem from '../components/Navbar/Item';
+import bus from '../utils/bus';
+import modifiers from '../utils/modifiers';
+import clickOutside from '../directives/clickOutside';
 
 const componentModifiers = [
   'is-transparent',

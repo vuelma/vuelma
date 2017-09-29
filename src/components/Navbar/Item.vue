@@ -35,8 +35,8 @@
 </template>
 
 <script>
-import bus from '@/utils/bus';
-import clickOutside from '@/directives/clickOutside';
+import bus from '../../utils/bus';
+import clickOutside from '../../directives/clickOutside';
 
 export default {
   name: 'navbar-item',

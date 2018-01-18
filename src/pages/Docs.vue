@@ -149,11 +149,13 @@
       :has-close="false"
       :show.sync="showModal"
     >
-      <template slot="body">
-        Sample Modal
+      <template slot="body">>
+        <input type="text" class="input" name="asd">
+        <input type="text" class="input" name="bcd">
+        <input type="text" class="input" name="efg">
       </template>
     </modal>
-</div>
+  </div>
 </template>
 
 <script>

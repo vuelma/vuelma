@@ -125,6 +125,7 @@ export default {
      */
     click() {
       if (this.hasDropdown) {
+        bus.$emit('dropdown');
         this.isOpened = !this.isOpened;
       } else {
         bus.$emit('click', this.$props);

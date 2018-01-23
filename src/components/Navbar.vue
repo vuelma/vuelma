@@ -109,6 +109,7 @@ export default {
   },
   mounted() {
     bus.$on('click', this.clickItem);
+    bus.$on('dropdown', () => this.$emit('dropdown'));
   },
   computed: {
     isActiveClass() {

@@ -136,11 +136,31 @@
       :active-item="activeMenu"
       @click:item="updateActiveMenu"
     ></menu-component>
-</div>
+
+    <h1 class="title is-1">Modal</h1>
+    <button
+      type="button"
+      class="button is-primary"
+      @click="showModal = true">
+      Show Modal
+    </button>
+    <modal
+      is-card
+      :has-close="false"
+      :show.sync="showModal"
+    >
+      <template slot="body">>
+        <input type="text" class="input" name="asd">
+        <input type="text" class="input" name="bcd">
+        <input type="text" class="input" name="efg">
+      </template>
+    </modal>
+  </div>
 </template>
 
 <script>
 import Dropdown from '@/components/Dropdown';
+import Modal from '@/components/Modal';
 import Notification from '@/components/Notification';
 import Pagination from '@/components/Pagination';
 import Tabs from '@/components/Tabs';
@@ -151,6 +171,7 @@ export default {
   name: 'docs',
   components: {
     Dropdown,
+    Modal,
     Notification,
     Pagination,
     Tabs,
@@ -160,6 +181,7 @@ export default {
   data() {
     return {
       showNotification: false,
+      showModal: false,
       currentPage: 1,
       activeTab: '',
       activeMenu: '',

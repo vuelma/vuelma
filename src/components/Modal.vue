@@ -53,6 +53,8 @@
         @click="close"
       ></button>
     </template>
+
+    <input>
   </div>
 </template>
 
@@ -99,6 +101,17 @@ export default {
   watch: {
     show() {
       document.querySelector('html').classList.toggle('modal-opened');
+      const nodes = this.$el.querySelectorAll('a, input, select, textarea, button, object');
+      if (nodes.length > 1) {
+        const last = nodes[nodes.length - 2];
+        last.addEventListener('keydown', (event) => {
+          if (event.keyCode === 9) {
+            window.setTimeout(() => {
+              nodes[0].focus();
+            }, 0);
+          }
+        });
+      }
     },
   },
   methods: {

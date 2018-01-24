@@ -3,6 +3,8 @@
     class="Modal modal is-active"
     v-show="show"
   >
+    <input style="width: 0px; opacity: 0">
+
     <div
       class="Modal__background modal-background"
       @click="(backdropClose) ? close() : () => {}"
@@ -54,7 +56,7 @@
       ></button>
     </template>
 
-    <input>
+    <input style="width: 0px; opacity: 0">
   </div>
 </template>
 
@@ -102,14 +104,14 @@ export default {
     show() {
       document.querySelector('html').classList.toggle('modal-opened');
       const nodes = this.$el.querySelectorAll('a, input, select, textarea, button, object');
-      if (nodes.length > 1) {
-        const last = nodes[nodes.length - 2];
-        last.addEventListener('keydown', (event) => {
-          if (event.keyCode === 9) {
-            window.setTimeout(() => {
-              nodes[0].focus();
-            }, 0);
-          }
+
+      if (nodes.length > 2) {
+        nodes[nodes.length - 1].addEventListener('focus', () => {
+          nodes[1].focus();
+        });
+
+        nodes[0].addEventListener('focus', () => {
+          nodes[nodes.length - 2].focus();
         });
       }
     },

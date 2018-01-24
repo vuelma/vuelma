@@ -146,15 +146,30 @@
     </button>
     <modal
       is-card
-      :has-close="false"
       :show.sync="showModal"
     >
       <template slot="body">>
         <input type="text" class="input" name="asd">
         <input type="text" class="input" name="bcd">
         <input type="text" class="input" name="efg">
+        <div class="columns">
+
+          <modal v-show="false" :show="false"
+          >
+            Sample Title
+          </modal>
+          <div class="column is-10">
+            <article class="addressbox">
+              <div class="Modal"></div>
+              <div class="searchmodal">
+                <button class="button">HELP</button>
+              </div>
+            </article>
+          </div>
+        </div>
       </template>
     </modal>
+    <input class="input">
   </div>
 </template>
 
